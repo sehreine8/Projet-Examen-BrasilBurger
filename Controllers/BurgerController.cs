@@ -17,5 +17,16 @@ namespace BrasilBurgerClient.Controllers
             var burgers = _context.Burgers.ToList();
             return View(burgers);
         }
+
+        public IActionResult Details(int id)
+        {
+            var burger = _context.Burgers.FirstOrDefault(b => b.Id == id);
+
+            if (burger == null)
+                return NotFound();
+
+            return View(burger);
+        }
+
     }
 }

@@ -48,3 +48,21 @@ body {
     border-radius: 15px !important;
 }
 
+.menu-desc {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.qty-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+}
+.qty-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 14px;
+}
+
+

@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: brasilburger-client-web
+    env: docker
+    plan: free
+    autoDeploy: true

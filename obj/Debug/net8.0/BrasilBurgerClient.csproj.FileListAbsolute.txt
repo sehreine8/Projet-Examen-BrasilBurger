@@ -104,3 +104,4 @@ C:\Users\LBC\Desktop\L3 GLRS 25-26\C#\BrasilBurgerClient\BrasilBurgerClient\obj\
 C:\Users\LBC\Desktop\L3 GLRS 25-26\C#\BrasilBurgerClient\BrasilBurgerClient\obj\Debug\net8.0\BrasilBurgerClient.pdb
 C:\Users\LBC\Desktop\L3 GLRS 25-26\C#\BrasilBurgerClient\BrasilBurgerClient\obj\Debug\net8.0\BrasilBurgerClient.genruntimeconfig.cache
 C:\Users\LBC\Desktop\L3 GLRS 25-26\C#\BrasilBurgerClient\BrasilBurgerClient\obj\Debug\net8.0\ref\BrasilBurgerClient.dll
+C:\Users\LBC\Desktop\L3 GLRS 25-26\C#\BrasilBurgerClient\BrasilBurgerClient\obj\Debug\net8.0\BrasilBurgerClient.sourcelink.json

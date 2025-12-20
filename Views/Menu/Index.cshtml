@@ -1,0 +1,89 @@
+@model IEnumerable<BrasilBurgerClient.Models.Menu>
+
+@{
+    ViewData["Title"] = "Menus";
+}
+
+<div class="container my-5">
+
+    <h2 class="fw-bold">Nos Menus</h2>
+    <p class="text-muted">
+        Profitez de nos menus complets et économisez sur votre commande
+    </p>
+
+    <div class="row g-4 mt-4">
+
+        @foreach (var menu in Model)
+        {
+            <div class="col-md-6">
+
+                <div class="d-flex bg-white shadow-sm rounded-4 overflow-hidden menu-card">
+
+                    <!-- IMAGE -->
+                    <div class="menu-img-wrapper" style="width: 45%;">
+                        <a href="/Menu/Details/@menu.Id">
+                            <img src="@menu.ImageUrl"
+                                alt="@menu.Nom"
+                                style="width:100%; height:100%; object-fit:cover;" />
+                        </a>     
+                    </div>
+
+                    <!-- INFORMATIONS -->
+                    <div class="p-4" style="width: 55%;">
+                        
+                        <h5 class="fw-bold">@menu.Nom</h5>
+
+                        <!-- 🔥 vraie description du burger -->
+                        <p class="text-muted small menu-desc" style="max-width: 280px;">
+                            @(menu.Burger.Description?.Length > 80 
+                                ? menu.Burger.Description.Substring(0, 80) + "..." 
+                                : menu.Burger.Description)
+                        </p>
+
+                        <!-- BURGER -->
+                        <div class="d-flex align-items-start mb-2">
+                            <i class="bi bi-egg-fried text-warning me-2 fs-5"></i>
+                            <div>
+                                <span class="fw-bold small">Burger</span><br />
+                                <span class="text-muted small">@menu.Burger.Nom</span>
+                            </div>
+                        </div>
+
+                        <!-- BOISSON -->
+                        <div class="d-flex align-items-start mb-2">
+                            <i class="bi bi-cup-straw text-warning me-2 fs-5"></i>
+                            <div>
+                                <span class="fw-bold small">Boisson</span><br />
+                                <span class="text-muted small">@menu.Boisson.Nom</span>
+                            </div>
+                        </div>
+
+                        <!-- FRITES -->
+                        <div class="d-flex align-items-start mb-3">
+                            <i class="bi bi-emoji-smile text-warning me-2 fs-5"></i>
+                            <div>
+                                <span class="fw-bold small">Accompagnements</span><br />
+                                <span class="text-muted small">@menu.Frites.Nom</span>
+                            </div>
+                        </div>
+
+                        <hr />
+
+                        <p class="fw-bold text-warning">
+                            @menu.PrixTotal xof
+                        </p>
+
+                        <a class="btn btn-warning w-100 rounded-3 fw-bold">
+                            <i class="bi bi-plus-circle me-2"></i> Ajouter au panier
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        }
+
+    </div>
+
+</div>

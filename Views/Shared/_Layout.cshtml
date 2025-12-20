@@ -48,7 +48,8 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="Menu" asp-action="Index">Menus</a>
+                        <a class="nav-link text-dark" asp-controller="Menu" asp-action="Index">Menus</a>
+
                     </li>
 
                 </ul>
@@ -89,6 +90,8 @@
     <!-- JS -->
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+
 
 </body>
 </html>
