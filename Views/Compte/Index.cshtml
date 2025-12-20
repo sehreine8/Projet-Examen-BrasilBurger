@@ -1,0 +1,100 @@
+@model Client
+
+<div class="container py-5">
+
+    <h2 class="fw-bold">Mon Compte</h2>
+    <p class="text-muted">Gérez vos informations personnelles</p>
+
+    <!-- 🔶 SECTION PROFIL -->
+    <div class="card shadow-sm mb-4 border-0 rounded-4">
+        <div class="card-body">
+
+            <div class="d-flex align-items-center mb-3">
+                <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center"
+                     style="width:60px; height:60px;">
+                    <i class="bi bi-person fs-3"></i>
+                </div>
+
+                <div class="ms-3">
+                    <h5 class="mb-0 fw-bold">@Model.Prenom @Model.Nom</h5>
+                    <small class="text-muted">Client Brasil Burger</small>
+                </div>
+
+                <a href="/Auth/Logout" class="ms-auto text-danger fw-bold">
+                    <i class="bi bi-box-arrow-right"></i> Se déconnecter
+                </a>
+            </div>
+
+            <div class="row">
+                <div class="col-6 mb-3">
+                    <label class="text-muted small">Prénom</label>
+                    <div class="fw-bold">@Model.Prenom</div>
+                </div>
+
+                <div class="col-6 mb-3">
+                    <label class="text-muted small">Nom</label>
+                    <div class="fw-bold">@Model.Nom</div>
+                </div>
+
+                <div class="col-6 mb-3">
+                    <label class="text-muted small">Téléphone</label>
+                    <div class="fw-bold">@Model.Telephone</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🔶 SECTION HISTORIQUE -->
+    <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body">
+
+            <div class="d-flex align-items-center mb-3">
+                <div class="rounded-circle bg-warning d-flex align-items-center justify-content-center"
+                     style="width:40px; height:40px;">
+                    <i class="bi bi-receipt fs-5"></i>
+                </div>
+
+                <div class="ms-3">
+                    <h5 class="fw-bold mb-0">Historique des commandes</h5>
+                    <small class="text-muted">@Model.Commandes.Count commande(s)</small>
+                </div>
+            </div>
+
+            @foreach (var cmd in Model.Commandes)
+            {
+                <div class="border rounded-3 p-3 mb-3">
+
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h6 class="fw-bold">Commande #@cmd.Id</h6>
+                            <small class="text-muted">
+                                @cmd.Date.ToString("dd MMMM yyyy à HH:mm")
+                            </small>
+                        </div>
+
+                        <div class="text-end">
+                            <span class="badge bg-warning text-dark">@cmd.Status</span>
+                            <div class="fw-bold">@cmd.Total €</div>
+                            <small class="text-muted">@cmd.QuantiteArticle article(s)</small>
+                        </div>
+                    </div>
+
+                    <hr />
+
+                    <h6 class="mb-2">Articles commandés :</h6>
+                    <div class="d-flex justify-content-between">
+                        <span>1x @cmd.NomArticle</span>
+                        <span>@cmd.Total €</span>
+                    </div>
+
+                    <hr />
+
+                    <h6 class="mb-2">Adresse de livraison :</h6>
+                    <p class="text-muted">@cmd.AdresseLivraison</p>
+                </div>
+            }
+
+        </div>
+    </div>
+
+</div>
