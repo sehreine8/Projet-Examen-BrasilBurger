@@ -58,11 +58,12 @@
                 <div class="d-flex align-items-center gap-3">
 
                     <!-- PANIER -->
-                    <a asp-controller="Panier" asp-action="Index"
-                       class="btn btn-warning rounded-pill px-3">
-                        <i class="bi bi-cart"></i>
+                    <a href="#" data-bs-toggle="offcanvas" 
+                        class="btn btn-warning rounded-pill px-3">
+                        <i class="bi bi-bag"></i>
                         Panier
                     </a>
+
 
                     <!-- PROFIL -->
                     <a asp-controller="Profil" asp-action="Index"
@@ -91,6 +92,105 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @RenderSection("Scripts", required: false)
+
+
+ <!-- 🟡 POP-UP PANIER -->
+    <div class="offcanvas offcanvas-end shadow" tabindex="-1" id="cartCanvas">
+        <div class="offcanvas-header">
+            <h6 class="offcanvas-title fw-bold">
+                <i class="bi bi-bag-fill text-warning me-2"></i> Mon Panier
+            </h6>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+
+        <div class="offcanvas-body">
+
+            <!-- LISTE ARTICLES -->
+            <div id="cart-items"></div>
+
+            <hr />
+
+            <!-- SOUS TOTAL -->
+            <div class="d-flex justify-content-between mb-2">
+                <span class="text-muted small">Sous-total</span>
+                <span id="cart-subtotal" class="fw-bold small">0 xof</span>
+            </div>
+
+            <!-- FRAIS LIVRAISON -->
+            <div class="d-flex justify-content-between mb-3">
+                <span class="text-muted small">Frais de livraison</span>
+                <span id="cart-fees" class="fw-bold small">1.000 xof</span>
+            </div>
+
+            <hr />
+
+            <!-- TOTAL -->
+            <div class="d-flex justify-content-between mb-4">
+                <h6 class="fw-bold">Total</h6>
+                <h6 id="cart-total" class="fw-bold text-warning">0 xof</h6>
+            </div>
+
+            <!-- BOUTON COMPLEMENT (APPARAÎT SEULEMENT SI PANIER > 0) -->
+            <a href="/Complement" 
+            id="btn-complement" 
+            class="btn btn-outline-dark w-100 mb-2 d-none">
+            Ajouter un complément
+            </a>
+
+            <!-- BOUTON COMMANDE -->
+            <a class="btn btn-warning w-100 fw-bold">
+                Valider ma commande
+            </a>
+
+            <a class="btn btn-light w-100 mt-2 small text-muted">
+                Continuer mes achats
+            </a>
+
+        </div>
+    </div>
+
+    <script>
+    let cart = [];
+
+    function addToCart(name, price, image, qty = 1) {
+
+        cart.push({ name, price, image, qty });
+
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+
+        const body = document.getElementById("cart-items");
+        body.innerHTML = "";
+
+        let subtotal = 0;
+
+        cart.forEach((item, i) => {
+
+            subtotal += item.price * item.qty;
+
+            body.innerHTML += `
+                <div class="d-flex align-items-center mb-3">
+                    <img src="${item.image}" style="width:60px;height:60px;object-fit:cover;border-radius:8px;">
+                    <div class="ms-2 flex-grow-1">
+                        <span class="fw-bold small d-block">${item.name}</span>
+                        <span class="text-muted small">${item.price} xof</span>
+                    </div>
+                    <span class="fw-bold text-warning">${item.price * item.qty} xof</span>
+                </div>
+            `;
+        });
+
+        // TOTAL
+        document.getElementById("cart-subtotal").textContent = subtotal + " xof";
+        document.getElementById("cart-total").textContent = (subtotal + 1000) + " xof";
+
+        // COMPLEMENT BUTTON
+        document.getElementById("btn-complement")
+                .classList.toggle("d-none", cart.length === 0);
+    }
+</script>
 
 
 </body>
