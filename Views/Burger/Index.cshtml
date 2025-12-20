@@ -1,0 +1,75 @@
+@model IEnumerable<BrasilBurgerClient.Models.Burger>
+
+@{
+    ViewData["Title"] = "Burgers";
+}
+
+<div class="container py-4">
+
+    <!-- HEADER -->
+    <h3 class="fw-bold">Nos Burgers</h3>
+    <p class="text-muted">
+        Découvrez notre sélection de burgers, préparés avec des ingrédients frais et de qualité.
+    </p>
+
+    
+
+    <!-- GRID BURGERS -->
+    <div class="row g-4 mt-3">
+
+        @foreach (var burger in Model)
+        {
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                    <!-- IMAGE -->
+                    <img src="@burger.ImageUrl"
+                         class="card-img-top rounded-top-4"
+                         style="height:230px; object-fit:cover;" />
+
+                    <!-- CONTENT -->
+                    <div class="card-body">
+
+                        <h6 class="fw-bold">@burger.Nom</h6>
+
+                        <p class="text-muted small" style="height:48px; overflow:hidden;">
+                            @burger.Description
+                        </p>
+
+                        <!-- TAGS -->
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+
+                            <span class="badge text-bg-light border text-muted small">
+                                Steak
+                            </span>
+
+                            <span class="badge text-bg-light border text-muted small">
+                                Original
+                            </span>
+
+                            <span class="badge text-bg-light border text-muted small">
+                                Favori
+                            </span>
+
+                        </div>
+
+                        <!-- FOOTER PRICE + BUTTON -->
+                        <div class="d-flex justify-content-between align-items-center">
+
+                            <span class="fw-bold text-warning fs-6">
+                                @burger.Prix fcfa
+                            </span>
+
+                            <button class="btn btn-warning btn-sm rounded-pill px-3 fw-semibold">
+                                + Ajouter
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+
+</div>

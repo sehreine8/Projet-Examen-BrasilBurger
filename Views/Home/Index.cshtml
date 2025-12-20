@@ -1,0 +1,130 @@
+﻿@model IEnumerable<BrasilBurgerClient.Models.Burger>
+
+@{
+    ViewData["Title"] = "Accueil";
+}
+
+<!-- ========================== -->
+<!-- HERO FULLSCREEN -->
+<!-- ========================== -->
+<!-- HERO SECTION FULL WIDTH -->
+<div class="w-100 position-relative overflow-hidden" style="height:80vh; margin:0; padding:0;">
+
+    <img src="images/hero-burger.jpg"
+         class="position-absolute top-0 start-0 w-100 h-100 object-fit-cover"
+         style="filter:brightness(60%);" />
+
+    <div class="position-absolute top-50 start-0 translate-middle-y text-white ps-5 pe-58
+"
+         style="max-width:600px;">
+        
+        <h2 class="fw-bold display-3">
+            Le Meilleur Burger de Dakar
+        </h2>
+
+        <p class="mt-3 fs-4">
+            Des saveurs authentiques dans chaque bouchée
+        </p>
+
+        <div class="d-flex gap-3 mt-4">
+            <a class="btn btn-warning text-dark fw-semibold px-4 py-2 rounded-pill"
+               href="#">
+                Commander maintenant →
+            </a>
+
+            <a class="btn btn-outline-light fw-semibold px-4 py-2 rounded-pill"
+               href="#">
+                Voir nos menus
+            </a>
+        </div>
+    </div>
+
+</div>
+
+<!-- ========================== -->
+<!-- FEATURE CARDS -->
+<!-- ========================== -->
+
+<!-- SERVICE CARDS -->
+<div class="container py-5">
+    <div class="row g-4">
+
+        <!-- CARD 1 -->
+        <div class="col-md-4">
+            <div class="border rounded-4 p-4 shadow-sm bg-white h-100">
+                <div class="text-warning fs-3 mb-3">
+                    <i class="bi bi-truck"></i>
+                </div>
+                <h6 class="fw-bold">Livraison Rapide</h6>
+                <p class="text-muted small">
+                    Recevez votre commande en moins de 30 minutes
+                </p>
+            </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="col-md-4">
+            <div class="border rounded-4 p-4 shadow-sm bg-white h-100">
+                <div class="text-warning fs-3 mb-3">
+                    <i class="bi bi-star"></i>
+                </div>
+                <h6 class="fw-bold">Qualité Premium</h6>
+                <p class="text-muted small">
+                    Ingrédients frais et de première qualité
+                </p>
+            </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="col-md-4">
+            <div class="border rounded-4 p-4 shadow-sm bg-white h-100">
+                <div class="text-warning fs-3 mb-3">
+                    <i class="bi bi-geo-alt"></i>
+                </div>
+                <h6 class="fw-bold">Service Local</h6>
+                <p class="text-muted small">
+                    Disponible dans toute la ville
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ========================== -->
+<!-- SECTION POPULAIRE -->
+<!-- ========================== -->
+
+<div class="container pb-5">
+    <h3 class="text-center fw-bold">Nos Burgers les plus populaires</h3>
+    <p class="text-center text-muted mb-5">
+        Découvrez notre sélection de burgers appréciés pour leurs ingrédients de qualité.
+    </p>
+
+    <div class="row">
+        @foreach (var burger in Model.Take(3))
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card rounded-4 shadow-sm border-0 h-100">
+                    <img src="@burger.ImageUrl"
+                         class="card-img-top rounded-top-4"
+                         style="height:230px; object-fit:cover;" />
+
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">@burger.Nom</h5>
+                        <p class="card-text text-muted" style="height:45px; overflow:hidden;">
+                            @burger.Description
+                        </p>
+                        <p class="fw-bold text-warning">@burger.Prix FCFA</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+        <a href="/Burger" class="btn btn-warning btn-lg rounded-pill px-4 fw-semibold">
+            Voir tous les burgers →
+        </a>
+    </div>
+</div>
