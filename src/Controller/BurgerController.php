@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Controller;
+use App\Repository\BurgerRepository;
+
 
 use App\Entity\Burger;
 use App\Form\BurgerType;
@@ -12,30 +14,22 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class BurgerController extends AbstractController
 {
+    
+   
     #[Route('/burgers', name: 'burger_list')]
-    #[Route('/burgers', name: 'burger_list')]
-    #[Route('/burgers', name: 'burger_list')]
-    public function list(EntityManagerInterface $em, Request $request): Response
-    {
-        // Pagination
+    public function list(
+        BurgerRepository $burgerRepository,
+        Request $request
+    ): Response {
         $page = max(1, (int) $request->query->get('page', 1));
         $limit = 6;
         $offset = ($page - 1) * $limit;
 
-        $total = $em->getRepository(Burger::class)
-            ->count(['archived' => false]);
-
-        $burgers = $em->getRepository(Burger::class)
-            ->findBy(
-                ['archived' => false],
-                ['id' => 'DESC'],
-                $limit,
-                $offset
-            );
-
+        $burgers = $burgerRepository->findActive($limit, $offset);
+        $total = $burgerRepository->countActive();
         $totalPages = (int) ceil($total / $limit);
 
-        // === FORMULAIRE AJOUT ===
+        // AJOUT
         $burger = new Burger();
         $burger->setArchived(false);
 
@@ -43,9 +37,7 @@ class BurgerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($burger);
-            $em->flush();
-
+            $burgerRepository->create($burger);
             return $this->redirectToRoute('burger_list');
         }
 
@@ -53,10 +45,9 @@ class BurgerController extends AbstractController
             'burgers' => $burgers,
             'currentPage' => $page,
             'totalPages' => $totalPages,
-            'form' => $form->createView(), // 👈 IMPORTANT
+            'form' => $form->createView()
         ]);
     }
-
 
 
     
@@ -68,4 +59,27 @@ class BurgerController extends AbstractController
 
         return $this->redirectToRoute('burger_list');
     }
+
+    #[Route('/burgers/{id}/edit', name: 'burger_edit', methods: ['GET', 'POST'])]
+    public function edit(
+        Burger $burger,
+        Request $request,
+        BurgerRepository $burgerRepository
+    ): Response {
+        $form = $this->createForm(BurgerType::class, $burger);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // ❌ pas de persist
+            $burgerRepository->update(); // flush()
+            return $this->redirectToRoute('burger_list');
+
+        }
+
+        return $this->render('burger/_form.html.twig', [
+            'form' => $form->createView(),
+            'burger' => $burger,
+        ]);
+    }
+
 }

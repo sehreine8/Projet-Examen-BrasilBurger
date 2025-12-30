@@ -49,4 +49,48 @@
     </div>
 </div>
 
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+    const editModal = document.getElementById('editBurgerModal');
+    if (!editModal) return;
+
+    editModal.addEventListener('show.bs.modal', function (event) {
+
+        const trigger = event.relatedTarget;
+        const burgerId = trigger.getAttribute('data-id');
+
+        const content = document.getElementById('editBurgerContent');
+        content.innerHTML = '<div class="text-center text-muted py-4">Chargement...</div>';
+
+        fetch(`/burgers/${burgerId}/edit`)
+            .then(response => response.text())
+            .then(html => {
+                content.innerHTML = html;
+            });
+    });
+
+});
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('editBurgerModal');
+    if (!modal) return;
+
+    modal.addEventListener('show.bs.modal', event => {
+        const button = event.relatedTarget;
+        const burgerId = button.getAttribute('data-id');
+        const content = document.getElementById('editBurgerContent');
+
+        content.innerHTML = 'Chargement...';
+
+        fetch(`/burgers/${burgerId}/edit`)
+            .then(r => r.text())
+            .then(html => content.innerHTML = html);
+    });
+});
+</script>
+
+
 {% endblock %}
