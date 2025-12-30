@@ -92,5 +92,22 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('archiveBurgerModal');
+    const form  = document.getElementById('archiveBurgerForm');
+
+    if (!modal || !form) return;
+
+    modal.addEventListener('show.bs.modal', event => {
+        const button = event.relatedTarget;
+        const burgerId = button.getAttribute('data-id');
+
+        form.action = `/burgers/${burgerId}/archive`;
+    });
+});
+</script>
+
+
 
 {% endblock %}

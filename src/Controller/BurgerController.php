@@ -51,14 +51,17 @@ class BurgerController extends AbstractController
 
 
     
-    #[Route('/burgers/{id}/archive', name: 'burger_archive')]
-    public function archive(Burger $burger, EntityManagerInterface $em): Response
-    {
+    #[Route('/burgers/{id}/archive', name: 'burger_archive', methods: ['POST'])]
+    public function archive(
+        Burger $burger,
+        BurgerRepository $burgerRepository
+    ): Response {
         $burger->setArchived(true);
-        $em->flush();
+        $burgerRepository->update(); // flush()
 
         return $this->redirectToRoute('burger_list');
     }
+
 
     #[Route('/burgers/{id}/edit', name: 'burger_edit', methods: ['GET', 'POST'])]
     public function edit(
