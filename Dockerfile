@@ -20,7 +20,7 @@ WORKDIR /var/www/html
 COPY . .
 
 # Installer dépendances Symfony
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 # Pointer Apache vers /public
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' \
