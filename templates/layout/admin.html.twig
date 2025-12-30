@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block layout %}
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="app-sidebar">
+        <div class="sidebar-brand">
+            <strong>Brasil Burger</strong>
+            
+        </div>
+
+        <nav class="sidebar-menu">
+            <a href="/dashboard" class="menu-item">Dashboard</a>
+            <a href="/burgers" class="menu-item active">Burgers</a>
+            <a href="/menus" class="menu-item">Menus</a>
+            <a href="/complements" class="menu-item">Compléments</a>
+            <a href="/commandes" class="menu-item">Commandes</a>
+            <a href="/zones" class="menu-item">Zones</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="/logout">Déconnexion</a>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <div class="app-main">
+
+        <!-- TOPBAR -->
+        <header class="app-topbar">
+            <h1 class="page-title">{% block page_title %}Dashboard{% endblock %}</h1>
+
+            <div class="topbar-actions">
+                <i class="bi bi-bell"></i>
+                <div class="profile">
+                    <strong>Gestionnaire</strong>
+                    <small>admin@brasilburger.com</small>
+                </div>
+            </div>
+        </header>
+
+        <!-- CONTENT -->
+        <main class="app-content">
+            {% block body %}{% endblock %}
+        </main>
+
+    </div>
+</div>
+
+{% endblock %}
