@@ -11,9 +11,11 @@
         <small class="text-muted">Gérez les burgers et leurs informations</small>
     </div>
 
-    <a href="/burgers/new" class="btn btn-warning fw-semibold">
+    <button class="btn btn-warning fw-semibold"
+            data-bs-toggle="modal"
+            data-bs-target="#addBurgerModal">
         + Ajouter un burger
-    </a>
+    </button>
 </div>
 
 <div class="card border-0 shadow-sm">
@@ -54,34 +56,31 @@
                     </tr>
                 {% endfor %}
             </tbody>
-
         </table>
+
         {% if totalPages > 1 %}
             <nav class="mt-4">
                 <ul class="pagination justify-content-center">
 
-                    {# Bouton précédent #}
                     <li class="page-item {% if currentPage == 1 %}disabled{% endif %}">
                         <a class="page-link"
-                        href="{{ path('burger_list', { page: currentPage - 1 }) }}">
+                           href="{{ path('burger_list', { page: currentPage - 1 }) }}">
                             Précédent
                         </a>
                     </li>
 
-                    {# Numéros de pages #}
                     {% for p in 1..totalPages %}
                         <li class="page-item {% if p == currentPage %}active{% endif %}">
                             <a class="page-link"
-                            href="{{ path('burger_list', { page: p }) }}">
+                               href="{{ path('burger_list', { page: p }) }}">
                                 {{ p }}
                             </a>
                         </li>
                     {% endfor %}
 
-                    {# Bouton suivant #}
                     <li class="page-item {% if currentPage == totalPages %}disabled{% endif %}">
                         <a class="page-link"
-                        href="{{ path('burger_list', { page: currentPage + 1 }) }}">
+                           href="{{ path('burger_list', { page: currentPage + 1 }) }}">
                             Suivant
                         </a>
                     </li>
@@ -90,7 +89,24 @@
             </nav>
         {% endif %}
 
+    </div>
+</div>
 
+{# ===== MODALE : DOIT ÊTRE DANS LE BODY ===== #}
+<div class="modal fade" id="addBurgerModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title">Ajouter un burger</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+            <div class="modal-body">
+                {% include 'burger/_form.html.twig' with { form: form } %}
+            </div>
+
+        </div>
     </div>
 </div>
 

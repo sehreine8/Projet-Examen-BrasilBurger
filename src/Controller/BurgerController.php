@@ -14,17 +14,17 @@ class BurgerController extends AbstractController
 {
     #[Route('/burgers', name: 'burger_list')]
     #[Route('/burgers', name: 'burger_list')]
+    #[Route('/burgers', name: 'burger_list')]
     public function list(EntityManagerInterface $em, Request $request): Response
     {
+        // Pagination
         $page = max(1, (int) $request->query->get('page', 1));
         $limit = 6;
         $offset = ($page - 1) * $limit;
 
-        // Total burgers (non archivés)
         $total = $em->getRepository(Burger::class)
             ->count(['archived' => false]);
 
-        // Burgers paginés
         $burgers = $em->getRepository(Burger::class)
             ->findBy(
                 ['archived' => false],
@@ -35,17 +35,7 @@ class BurgerController extends AbstractController
 
         $totalPages = (int) ceil($total / $limit);
 
-        return $this->render('burger/index.html.twig', [
-            'burgers' => $burgers,
-            'currentPage' => $page,
-            'totalPages' => $totalPages,
-        ]);
-    }
-
-
-    #[Route('/burgers/new', name: 'burger_new')]
-    public function new(Request $request, EntityManagerInterface $em): Response
-    {
+        // === FORMULAIRE AJOUT ===
         $burger = new Burger();
         $burger->setArchived(false);
 
@@ -59,11 +49,17 @@ class BurgerController extends AbstractController
             return $this->redirectToRoute('burger_list');
         }
 
-        return $this->render('burger/new.html.twig', [
-            'form' => $form->createView(),
+        return $this->render('burger/index.html.twig', [
+            'burgers' => $burgers,
+            'currentPage' => $page,
+            'totalPages' => $totalPages,
+            'form' => $form->createView(), // 👈 IMPORTANT
         ]);
     }
 
+
+
+    
     #[Route('/burgers/{id}/archive', name: 'burger_archive')]
     public function archive(Burger $burger, EntityManagerInterface $em): Response
     {

@@ -15,23 +15,19 @@ class BurgerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom', TextType::class)
-            ->add('prix', MoneyType::class, [
-                'currency' => 'XOF'
+            ->add('nom', TextType::class, [
+                'label' => 'Nom du burger'
             ])
-            ->add('imageUrl', TextType::class)
+            ->add('prix', MoneyType::class, [
+                'label' => 'Prix (€)',
+                'currency' => false
+            ])
             ->add('description', TextareaType::class, [
                 'required' => false
             ])
-            ->add('archived', CheckboxType::class, [
-                'required' => false
+            ->add('imageUrl', TextType::class, [
+                'label' => 'Image du burger',
+                'help' => 'Collez l’URL de l’image'
             ]);
-    }
-
-    public function configureOptions(OptionsResolver $resolver): void
-    {
-        $resolver->setDefaults([
-            'data_class' => Burger::class,
-        ]);
     }
 }
